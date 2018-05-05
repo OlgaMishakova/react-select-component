@@ -1,0 +1,47 @@
+.field
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 0.5em;
+  width: 100%;
+  position: relative;
+  font-size: 16px;
+  top: 2em;
+  padding: 0.5em;
+
+input
+  box-sizing: border-box;
+  border: none;
+  border-radius: 0.5em;
+  background: none;
+  width: 100%;
+  padding: 1.2em 1em 0.8em;
+  position: relative;
+  z-index: 2;
+  font-size: 1em;
+
+input:focus
+  outline: none;
+
+.field__input--focused + .field__placeholder,
+  input:focus + .field__placeholder
+  font-size: 1em;
+  top: -0.1em;
+
+.field__placeholder
+  box-sizing: border-box;
+  border: none;
+  background: none;
+  height: 0.9em;
+  background-color: white;
+  position: absolute;
+  z-index: 1;
+  padding: 0 0.5em;
+  left: 1em;
+  top: 50%;
+  line-height: 1em;
+  margin-top: -0.5em;
+  color: #777;
+  transition: all 0.2s ease;
+
+ul
+  margin: 100px;
