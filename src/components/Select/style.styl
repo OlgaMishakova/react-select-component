@@ -1,17 +1,34 @@
+.field__container
+  position: relative;
+  display flex;
+  justify-content center;
+  margin: 3em 0;
+
 .field
   box-sizing: border-box;
   border: 1px solid #ccc;
   border-radius: 0.5em;
-  width: 100%;
+  min-width: 50%;
   position: relative;
   font-size: 16px;
-  top: 2em;
   padding: 0.5em;
+
+.list-visible
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+
+.field::after
+  position: absolute;
+  top: 50%;
+  right: 1em;
+  content: '';
+  border-left: 0.5em solid transparent;
+  border-right: 0.5em solid transparent;
+  border-top: 0.5em solid black;
 
 input
   box-sizing: border-box;
   border: none;
-  border-radius: 0.5em;
   background: none;
   width: 100%;
   padding: 1.2em 1em 0.8em;
@@ -44,8 +61,47 @@ input:focus
   transition: all 0.2s ease;
 
 .field__suggestions
-  margin: 100px;
+  position: absolute;
+  top: 4.2em;
+  margin: 0;
+  padding: 0;
+  min-width: 50%;
   display: none;
+  border: 1px solid #ccc;
+  border-top: none;
+  border-radius: 0.5em;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+  box-sizing: border-box;
 
 .field__suggestions--visible
   display: block;
+
+.field__suggestion
+  list-style: none;
+  padding: 1em;
+  margin: 0;
+
+.field__suggestion:hover
+  background-color: #ccc;
+
+.field__message
+  position: absolute;
+  display: none;
+  top: 4.2em;
+  margin: 0;
+  padding: 1em;
+  min-width: 50%;
+  border: 1px solid #ccc;
+  border-top: none;
+  border-radius: 0.5em;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+  box-sizing: border-box;
+
+.field__message--visible
+  display: block;
+
+strong
+  text-decoration: underline;
+  color: darkorange;
