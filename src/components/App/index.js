@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
-import { Select } from '../Select/';
+import { SelectContainer } from "../../containers/SelectContainer";
 import { HEROES } from '../../consts/consts';
 
 export const App = () => (
     <Fragment>
-        <Select values={HEROES}/>
+        <SelectContainer values={HEROES}/>
     </Fragment>
 );

@@ -1,14 +1,12 @@
 import React from 'react';
 import { connect } from "react-redux";
 import { Select } from "../components/Select";
-import { getFilteredSuggestions } from "../actions";
+import { getSuggestionsList } from "../actions";
 
-const mapDispatchToProps = (dispatch) => {
-    return {getSuggestions: value => dispatch(getFilteredSuggestions(value))}
+const mapDispatchToProps = dispatch => {
+    return {getSuggestions: () => dispatch(getSuggestionsList())}
 };
 
-const mapStateToProps = state => {
-    return {...state};
-};
+const mapStateToProps = (state = {}) => state;
 
 export const SelectContainer = connect(mapStateToProps, mapDispatchToProps)(Select);

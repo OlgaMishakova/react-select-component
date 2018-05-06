@@ -1,4 +1,3 @@
-export const getFilteredSuggestions = value => ({
-    type: 'GET_SUGGESTIONS',
-    value
+export const getSuggestionsList = () => ({
+    type: 'GET_SUGGESTIONS'
 });
