@@ -97,7 +97,7 @@ class Select extends Component {
                 className={`field__suggestions ${listVisible ? "field__suggestions--visible" : "" }`}>
                 {
                     sortedSuggestions.map((suggestion, i) =>
-                        <li className="field__suggestion" key={i} onClick={this.onSuggestionClick(suggestion)}>
+                        <li className="field__suggestion" key={i} tabIndex={0} onClick={this.onSuggestionClick(suggestion)}>
                             {suggestion}
                         </li>
                     )
