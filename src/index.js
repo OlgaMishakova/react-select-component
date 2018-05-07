@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { AppContainer } from 'react-hot-loader';
+import { hot } from 'react-hot-loader'
 import { App } from "./components/App";
 import { HEROES } from "./consts/consts";
 import { retrieveSuggestions } from "./reducers";
@@ -23,3 +24,4 @@ const render = Component => {
 };
 
 render(() => (<App />));
+export default hot(module)(App)
