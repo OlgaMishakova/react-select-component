@@ -8,7 +8,7 @@ import { HEROES } from "./consts/consts";
 import { retrieveSuggestions } from "./reducers";
 import './style.styl';
 
-const initialState = { suggestions: HEROES };
+export const initialState = { suggestions: HEROES };
 export const store = createStore(retrieveSuggestions, initialState);
 
 const render = Component => {

@@ -1,4 +1,5 @@
 import React, {Component, Fragment} from 'react';
+import { findDOMNode } from 'react-dom';
 import './style.styl';
 
 class Select extends Component {
@@ -10,14 +11,21 @@ class Select extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.filterSuggestion = this.filterSuggestion.bind(this);
         this.highlightMatches = this.highlightMatches.bind(this);
+        this.onSuggestionClick = this.onSuggestionClick.bind(this);
+        this.listDirectionClass = this.listDirectionClass.bind(this);
         this.show = this.show.bind(this);
         this.hide = this.hide.bind(this);
 
         this.state = {
             isFocused: false,
             listVisible: false,
-            value: ''
+            value: '',
+            directionClass: "field__suggestions--down"
         };
+    }
+
+    componentDidMount() {
+        this.listDirectionClass();
     }
 
     handleFocus() {
@@ -35,7 +43,7 @@ class Select extends Component {
 
     hide() {
         this.setState({listVisible: false});
-        document.removeEventListener("click", this.hide);
+        document.removeEventListener('click', this.hide);
     }
 
     show() {
@@ -60,7 +68,23 @@ class Select extends Component {
         }
     }
 
+    onSuggestionClick(suggestion) {
+        return () =>  this.setState({ value: suggestion });
+    }
+
+    listDirectionClass() {
+        const node = findDOMNode(this.listElement);
+        if (!node) return;
+        const windowHeight = window.innerHeight;
+        const elementOffset = node.getBoundingClientRect().top + node.clientHeight;
+        this.setState({
+            directionClass: elementOffset >= windowHeight ? "field--upward" : "field--downward"
+        });
+    }
+
     renderSuggestions() {
+        const { listVisible } = this.state;
+
         const sortedSuggestions = this.props.values
             .slice()
             .filter(this.filterSuggestion)
@@ -69,32 +93,40 @@ class Select extends Component {
 
         return sortedSuggestions.length !== 0
             ? <ul
-                className={`field__suggestions ${this.state.listVisible ? "field__suggestions--visible" : "" }`}>
+                ref={element => (this.listElement = element)}
+                className={`field__suggestions ${listVisible ? "field__suggestions--visible" : "" }`}>
                 {
                     sortedSuggestions.map((suggestion, i) =>
-                        <li className="field__suggestion" key={i}>{suggestion}</li>
+                        <li className="field__suggestion" key={i} onClick={this.onSuggestionClick(suggestion)}>
+                            {suggestion}
+                        </li>
                     )
                 }
             </ul>
-            : <p className={`field__message ${this.state.listVisible ? "field__message--visible" : "" }`}>
-                No matches found
+            : <p className={`field__message ${listVisible ? "field__message--visible" : "" }`}>
+                Нет совпадений
             </p>
     }
 
     render() {
+        const { isFocused, listVisible, value, directionClass } = this.state;
         return (
-            <div onClick={this.show} className="field__container">
-                <div className={`field ${this.state.listVisible ? "list-visible" : "" }`}
+            <div
+                onClick={this.show}
+                className={`field ${listVisible ? "field--list-visible" : "" }  ${directionClass}`}>
+                <div className="field__container"
                      onFocus={this.handleFocus}
                      onBlur={this.handleBlur}
                 >
                     <input
                         type="text"
-                        name="awesome-input"
-                        className={this.state.isFocused ? "field__input--focused" : null}
+                        name="field-input"
+                        className={`field__input ${isFocused ? "field__input--focused" : "" }`}
                         onChange={this.handleChange}
+                        value={value}
                     />
-                    <label className="field__placeholder">
+                    <label
+                        className={`field__placeholder ${isFocused || value.length !== 0 ? "field__placeholder--float" : ""}`}>
                         Выберите, черт возьми, что-нибудь
                     </label>
                 </div>
